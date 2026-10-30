@@ -1,8 +1,8 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
-import { type EditorAdapter, type EditorAdapterInit } from './EditorAdapter';
-import { normalizeHtmlForEditor, sanitizeCellHtml } from './sanitize';
+import { type EditorAdapter, type EditorAdapterInit } from './EditorAdapter.js';
+import { normalizeHtmlForEditor, sanitizeCellHtml } from './sanitize.js';
 
 export interface RichTextEditorOptions {
   adapter: EditorAdapter;

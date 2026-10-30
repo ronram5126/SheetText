@@ -1,0 +1,11 @@
+{
+  "name": "sheettext-plugin",
+  "version": "1.0.0",
+  "description": "SheetText rich text editor plugin bundle for Excel and ONLYOFFICE",
+  "private": true,
+  "files": [
+    "dist",
+    "excel",
+    "onlyoffice"
+  ]
+}

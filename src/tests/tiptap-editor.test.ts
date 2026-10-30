@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
 
-import { toWordPressCompatibleHtml, parseWordPressHtml, createEditorAdapterContract } from '../editor/tiptap';
-import { sanitizeCellHtml } from '../editor/sanitize';
-import { excelManifestXml } from '../excel/taskpane';
+import { toWordPressCompatibleHtml, parseWordPressHtml, createEditorAdapterContract } from '../editor/tiptap.js';
+import { sanitizeCellHtml } from '../editor/sanitize.js';
+import { excelManifestXml } from '../excel/taskpane.js';
 
 const dom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = dom;

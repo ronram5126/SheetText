@@ -1,7 +1,7 @@
 declare const Office: any;
 
-import { createTipTapEditor, type RichTextEditorOptions } from '../editor/tiptap';
-import { type EditorAdapter } from '../editor/EditorAdapter';
+import { createTipTapEditor, type RichTextEditorOptions } from '../editor/tiptap.js';
+import { type EditorAdapter } from '../editor/EditorAdapter.js';
 
 export interface ExcelCellAdapter extends EditorAdapter {
   cellAddress?: string;

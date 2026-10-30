@@ -1,3 +1,26 @@
+# Dependencies
 node_modules/
+
+# Build artifacts
 dist/
+release/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+
+# Coverage
+coverage/
+.nyc_output/
+
+# OS and editor files
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/

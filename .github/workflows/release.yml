@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Validate tag matches package version
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); const tag = process.env.GITHUB_REF_NAME.replace(/^v/, ''); if (pkg.version !== tag) { console.error(`Tag version ${tag} does not match package.json version ${pkg.version}`); process.exit(1); }"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build release package
+        run: npm run release
+
+      - name: Archive release bundle
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+        run: |
+          cd release
+          zip -r "sheettext-plugin-${RELEASE_VERSION}.zip" sheettext-plugin MANIFEST.txt
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release/sheettext-plugin-${{ github.ref_name }}.zip
+            release/MANIFEST.txt

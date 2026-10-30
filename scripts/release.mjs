@@ -8,6 +8,7 @@ const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'dist');
 const releaseDir = path.join(rootDir, 'release');
 const releasePackageDir = path.join(releaseDir, 'sheettext-plugin');
+const rootPackageJsonPath = path.join(rootDir, 'package.json');
 
 function ensureDir(target) {
   fs.mkdirSync(target, { recursive: true });
@@ -44,9 +45,15 @@ copyDir(distDir, path.join(releasePackageDir, 'dist'));
 copyDir(path.join(rootDir, 'src', 'excel'), path.join(releasePackageDir, 'excel'));
 copyDir(path.join(rootDir, 'src', 'onlyoffice'), path.join(releasePackageDir, 'onlyoffice'));
 
+const rootPackageJson = JSON.parse(fs.readFileSync(rootPackageJsonPath, 'utf8'));
+const releaseVersion = rootPackageJson.version;
+if (!releaseVersion) {
+  throw new Error('package.json version is required to build a release package.');
+}
+
 const packageJson = {
   name: 'sheettext-plugin',
-  version: '1.0.0',
+  version: releaseVersion,
   description: 'SheetText rich text editor plugin bundle for Excel and ONLYOFFICE',
   private: true,
   files: ['dist', 'excel', 'onlyoffice']
@@ -60,9 +67,6 @@ writeFile(path.join(releasePackageDir, 'README.txt'), [
   'Use the files in excel/manifest.xml and onlyoffice/config.json with your host environment.',
   ''
 ].join('\n'));
-
-const zipName = 'sheettext-plugin.zip';
-const zipPath = path.join(releaseDir, zipName);
 
 const zipEntries = [];
 function addFileToZip(base, currentPath) {

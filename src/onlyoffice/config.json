@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    {
+      "name": "SheetText Rich Text",
+      "guid": "SheetText.RichTextEditor",
+      "baseUrl": "https://example.com/plugin",
+      "events": ["onSelectionChanged", "onCellSelection"]
+    }
+  ]
+}
